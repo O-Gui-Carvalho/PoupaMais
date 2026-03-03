@@ -3,13 +3,13 @@
 import { useActionState } from "react"
 
 export default function LoginForm() {
-    const inputStyles = "bg-[#1A1A1A] border border-[#404040] rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-neutral-500 transition-all"
+    const inputStyles = "bg-background border border-input rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-ring transition-all"
     const [state, action, isPending] = useActionState(LoginForm, null)
 
   return (
     <form action="" className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
-            <label htmlFor="email" className="text-sm font-medium">Email</label>
+            <label htmlFor="email" className="text-sm font-medium text-foreground">Email</label>
             <input 
                 type="email" 
                 id="email"
@@ -21,7 +21,7 @@ export default function LoginForm() {
         </div>
 
         <div className="flex flex-col gap-1">
-            <label htmlFor="password" title="Senha" className="text-sm font-medium">Senha</label>
+            <label htmlFor="password" title="Senha" className="text-sm font-medium text-foreground">Senha</label>
             <input 
                 type="password" 
                 id="password"
@@ -34,7 +34,7 @@ export default function LoginForm() {
 
         {/* Mensagem de erro */}
         {/*{state?.message && (
-            <div className="bg-red-500/10 border border-red-500/20 text-red-500 text-sm p-3 rounded-lg text-center">
+            <div className="bg-destructive/10 border border-destructive/20 text-destructive text-sm p-3 rounded-lg text-center">
                 {state.message}
             </div>
         )}*/}
@@ -42,7 +42,7 @@ export default function LoginForm() {
         <button
             type="submit" 
             disabled={isPending}
-            className="mt-2 bg-neutral-200 text-neutral-900 font-semibold rounded-lg p-2 hover:bg-neutral-400 transition-colors duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex justify-center"
+            className="mt-2 bg-primary text-primary-foreground font-semibold rounded-lg p-2 hover:bg-primary/90 transition-colors duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex justify-center"
         >
             {isPending ? 'Entrando...' : 'Entrar'}
         </button>

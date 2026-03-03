@@ -2,7 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export default function SignUpPage() {
-  const inputStyles = "bg-[#1A1A1A] border border-[#404040] rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-neutral-500 transition-all"
+  const inputStyles = "bg-background border border-input rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-ring transition-all"
+
   return (
     <section className="flex min-h-dvh">
         {/* Lado Esquerdo - Imagem (reutilizada) */}
@@ -23,13 +24,13 @@ export default function SignUpPage() {
         <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8">
             <div className="w-full max-w-sm flex flex-col gap-6">
                 <header className="space-y-1 flex flex-col items-center justify-center text-center">
-                    <h1 className="text-4xl font-bold tracking-tight">Crie sua conta</h1>
-                    <p className="text-neutral-400">Organize suas finanças hoje.</p>
+                    <h1 className="text-4xl font-bold tracking-tight text-foreground">Crie sua conta</h1>
+                    <p className="text-muted-foreground">Organize suas finanças hoje.</p>
                 </header>
 
                 <form action="" className='flex flex-col gap-4'>
                     <div className="flex flex-col gap-1">
-                        <label htmlFor="name" className="text-sm font-medium">Nome</label>
+                        <label htmlFor="name" className="text-sm font-medium text-foreground">Nome</label>
                         <input 
                             type="text"
                             id='name'
@@ -41,7 +42,7 @@ export default function SignUpPage() {
                     </div>
 
                     <div className="flex flex-col gap-1">
-                        <label htmlFor="email" className='text-sm font-medium'>Email</label>
+                        <label htmlFor="email" className='text-sm font-medium text-foreground'>Email</label>
                         <input 
                             type="email" 
                             id='email'
@@ -53,7 +54,7 @@ export default function SignUpPage() {
                     </div>
 
                     <div className="flex flex-col gap-1">
-                        <label htmlFor="password" title='Senha' className='text-sm font-medium'>Senha</label>
+                        <label htmlFor="password" title='Senha' className='text-sm font-medium text-foreground'>Senha</label>
                         <input 
                             type="password"
                             id='password'
@@ -65,14 +66,14 @@ export default function SignUpPage() {
                         />
                     </div>
 
-                    <button type='submit' className="mt-2 bg-neutral-200 text-neutral-900 font-semibold rounded-lg p-2 hover:bg-neutral-400 transition-colors duration-300 cursor-pointer">
+                    <button type='submit' className="mt-2 bg-primary text-primary-foreground font-semibold rounded-lg p-2 hover:bg-primary/90 transition-colors duration-300 cursor-pointer">
                         Cadastrar
                     </button>
                 </form>
 
-                <div className="text-center text-sm text-neutral-500">
+                <div className="text-center text-sm text-muted-foreground">
                     Já tem uma conta?{' '}
-                    <Link href='/' className='text-white hover:underline underline-offset-4'>
+                    <Link href='/' className='text-foreground font-medium hover:underline underline-offset-4'>
                         Faça login
                     </Link>
                 </div>

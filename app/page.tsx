@@ -32,26 +32,26 @@ export default function Home() {
           
           {/*Cabeçalho */}
           <header className="space-y-1 flex flex-col items-center justify-center">
-            <h1 className="text-4xl font-bold tracking-tight">Bem Vindo(a)</h1>
-            <p className="text-neutral-400">Faça login</p>
+            <h1 className="text-4xl font-bold tracking-tight text-foreground">Bem Vindo(a)</h1>
+            <p className="text-muted-foreground">Faça login</p>
           </header>
 
           <LoginForm />
 
-          <div className="text-center text-sm text-neutral-500">
+          <div className="text-center text-sm text-muted-foreground">
             Não tem uma conta?{' '}
-            <Link href={"/sign-up"} className="text-white hover:underline underline-offset-4">
+            <Link href={"/signup"} className="text-foreground font-medium hover:underline underline-offset-4">
               Cadastre-se
             </Link>
           </div>
 
           <div className="flex items-center gap-4">
-            <hr className="flex-1 border-neutral-700"/>
-            <span className="text-sm text-neutral-500 whitespace-nowrap">Ou continue com</span>
-            <hr className="flex-1 border-neutral-700"/>
+            <hr className="flex-1 border-border"/>
+            <span className="text-sm text-muted-foreground whitespace-nowrap">Ou continue com</span>
+            <hr className="flex-1 border-border"/>
           </div>
 
-          <button className="flex items-center justify-center gap-2 bg-transparent border border-neutral-700 text-neutral-200 rounded-lg p-2 hover:bg-neutral-800 transition-colors cursor-pointer">
+          <button className="flex items-center justify-center gap-2 bg-transparent border border-input text-foreground rounded-lg p-2 hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer">
             Google
           </button>
 
