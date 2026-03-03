@@ -3,7 +3,7 @@
 import { useActionState } from "react"
 
 export default function LoginForm() {
-    const inputStyles = "bg-[#1A1A1A border bordeer-[#404040] rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-neutral-500 transition-all"
+    const inputStyles = "bg-[#1A1A1A] border border-[#404040] rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-neutral-500 transition-all"
     const [state, action, isPending] = useActionState(LoginForm, null)
 
   return (
