@@ -9,6 +9,7 @@ import { Button, buttonVariants } from './ui/button'
 import { ThemeSwitcherBtn } from './ThemeSwitcherBtn'
 import { Menu } from 'lucide-react'
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from './ui/sheet'
+import Logo from './Logo'
 
 export default function Navbar() {
   return (
@@ -18,10 +19,6 @@ export default function Navbar() {
     </>
   )
 }
-
-const Logo = () => (
-  <Image src='/poupa-mais-logo.svg' alt='Logo PoupaMais' width={80} height={17} priority />
-)
 
 const items = [
   { label: "Painel", link: '/dashboard' },
