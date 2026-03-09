@@ -8,25 +8,18 @@ import {
   ComboboxItem,
   ComboboxList,
 } from "@/components/ui/combobox"
-
-const frameworks = [
-  "Next.js",
-  "SvelteKit",
-  "Nuxt.js",
-  "Remix",
-  "Astro",
-] as const
+import { currencies } from "@/lib/currencies"
 
 export default function CurrencyComboBox() {
   return (
-    <Combobox items={frameworks}>
-      <ComboboxInput placeholder="Select a framework" />
+    <Combobox items={currencies}>
+      <ComboboxInput placeholder="Selecione a sua moeda" />
       <ComboboxContent>
         <ComboboxEmpty>No items found.</ComboboxEmpty>
         <ComboboxList>
           {(item) => (
-            <ComboboxItem key={item} value={item}>
-              {item}
+            <ComboboxItem key={item.value} value={item.value}>
+              {item.label}
             </ComboboxItem>
           )}
         </ComboboxList>
