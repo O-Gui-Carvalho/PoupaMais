@@ -3,19 +3,22 @@ import Logo from '@/components/Logo'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
+import { auth } from '@/lib/auth/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 export default async function page() {
     // Criar função com Neon Auth
-    //const user = await currentUser();
+    const { data: session } = await auth.getSession();
 
-    {/*if (!user) {
-        redirect("/sign-in")
-    }*/}
+    if (session?.user) {
+        redirect ('/')
+    }
+
+
   return (
-    <div className="container flex max-w-2xl flex-col items-center justify-between gap-4">
-        <div className="">
+    <div className="container max-w-2xl">
+        <div className="flex flex-col items-center justify-between gap-4 mx-4">
             <h1 className="text-center text-3xl">
                 Bem vindo(a), <span className="ml-2 font-bold">
                     {/*user.firstName*/}Guilherme!

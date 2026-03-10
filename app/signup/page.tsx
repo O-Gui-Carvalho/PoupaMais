@@ -1,9 +1,43 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
+import { authClient } from '@/lib/auth/client'
+import { useRouter } from 'next/navigation'
 
 export default function SignUpPage() {
   const inputStyles = "bg-background border border-input rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-ring transition-all"
 
+  const [isPending, setIsPending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
+
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsPending(true)
+    setError(null)
+
+    const formData = new FormData(e.currentTarget)
+    const name = formData.get("name") as string
+    const email = formData.get("email") as string
+    const password = formData.get("password") as string
+
+    // Cria a conta usando a API da Neon Auth
+    const { error } = await authClient.signUp.email({
+        name,
+        email,
+        password,
+    })
+
+    if (error) {
+        setError(error.message || "Falha ao criar conta.")
+        setIsPending(false)
+    } else {
+        router.push("/dashboard")
+    }
+  }
+  
   return (
     <section className="flex min-h-dvh">
         {/* Lado Esquerdo - Imagem (reutilizada) */}
@@ -28,7 +62,7 @@ export default function SignUpPage() {
                     <p className="text-muted-foreground">Organize suas finanças hoje.</p>
                 </header>
 
-                <form action="" className='flex flex-col gap-4'>
+                <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
                     <div className="flex flex-col gap-1">
                         <label htmlFor="name" className="text-sm font-medium text-foreground">Nome</label>
                         <input 
@@ -66,8 +100,18 @@ export default function SignUpPage() {
                         />
                     </div>
 
-                    <button type='submit' className="mt-2 bg-primary text-primary-foreground font-semibold rounded-lg p-2 hover:bg-primary/90 transition-colors duration-300 cursor-pointer">
-                        Cadastrar
+                    {error && (
+                        <div className="bg-destructive/10 border border-destructive/20 text-destructive text-sm p-3 rounded-lg text-center">
+                            {error}
+                        </div>
+                    )}
+
+                    <button 
+                        type='submit' 
+                        disabled={isPending}
+                        className="mt-2 bg-primary text-primary-foreground font-semibold rounded-lg p-2 hover:bg-primary/90 transition-colors duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        {isPending ? 'Cadastrando...' : 'Cadastrar'}
                     </button>
                 </form>
 

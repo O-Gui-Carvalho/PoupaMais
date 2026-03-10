@@ -1,6 +1,7 @@
 import LoginForm from "@/components/LoginForm";
 import Image from "next/image";
 import Link from "next/link";
+import GoogleButton from "@/components/GoogleButton";
 
 export default function Home() {
   return (
@@ -51,9 +52,7 @@ export default function Home() {
             <hr className="flex-1 border-border"/>
           </div>
 
-          <button className="flex items-center justify-center gap-2 bg-transparent border border-input text-foreground rounded-lg p-2 hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer">
-            Google
-          </button>
+          <GoogleButton />
 
         </div>
       </div>

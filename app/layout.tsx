@@ -1,3 +1,5 @@
+import { authClient } from '@/lib/auth/client'; 
+import { NeonAuthUIProvider } from '@neondatabase/auth/react'; 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -22,14 +24,20 @@ export default function RootLayout({
       <body
         className={`${inter.className} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+        <NeonAuthUIProvider
+          authClient={authClient} 
+          redirectTo="/dashboard"
+          emailOTP
         >
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
             {children}
-        </ThemeProvider>
+          </ThemeProvider>
+        </NeonAuthUIProvider>
       </body>
     </html>
   );
