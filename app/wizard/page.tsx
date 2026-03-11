@@ -6,22 +6,28 @@ import { Separator } from '@/components/ui/separator'
 import { auth } from '@/lib/auth/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
+import prisma from '@/lib/prisma'
 
 export default async function page() {
     // Criar função com Neon Auth
     const { data: session } = await auth.getSession();
 
-    if (session?.user) {
+    if (!session?.user) {
         redirect ('/')
     }
 
+    const userSettings = await prisma.userSetting.findUnique({
+        where: { userId: session.user.id },
+    })
+
+    const firstName = userSettings?.firstName || session.user.name?.split(' ')[0] || 'usuário'
 
   return (
     <div className="container max-w-2xl">
         <div className="flex flex-col items-center justify-between gap-4 mx-4">
             <h1 className="text-center text-3xl">
                 Bem vindo(a), <span className="ml-2 font-bold">
-                    {/*user.firstName*/}Guilherme!
+                    {firstName}
                 </span>
             </h1>
 
@@ -50,7 +56,7 @@ export default async function page() {
             <Separator />
 
             <Button className="w-full" asChild>
-                <Link href={"/"}>Tudo pronto vamos para a dashboard!</Link>
+                <Link href={"/dashboard"}>Tudo pronto vamos para a dashboard!</Link>
             </Button>
 
             <div className="mt-8">

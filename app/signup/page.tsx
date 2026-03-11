@@ -19,9 +19,12 @@ export default function SignUpPage() {
     setError(null)
 
     const formData = new FormData(e.currentTarget)
-    const name = formData.get("name") as string
+    const firstName = formData.get("firstName") as string
+    const lastName = formData.get("lastName") as string
     const email = formData.get("email") as string
     const password = formData.get("password") as string
+
+    let name = firstName + ' ' + lastName
 
     // Cria a conta usando a API da Neon Auth
     const { error } = await authClient.signUp.email({
@@ -33,9 +36,19 @@ export default function SignUpPage() {
     if (error) {
         setError(error.message || "Falha ao criar conta.")
         setIsPending(false)
-    } else {
-        router.push("/dashboard")
     }
+
+    const settingsRes = await fetch("/api/user-settings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ firstName, lastName }),
+    })
+
+    if (!settingsRes.ok) {
+      console.error("Falha ao salvar nome separado")
+    }
+
+    router.push("/wizard")
   }
   
   return (
@@ -64,12 +77,24 @@ export default function SignUpPage() {
 
                 <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
                     <div className="flex flex-col gap-1">
-                        <label htmlFor="name" className="text-sm font-medium text-foreground">Nome</label>
+                        <label htmlFor="firstName" className="text-sm font-medium text-foreground">Nome</label>
                         <input 
                             type="text"
-                            id='name'
-                            name='name'
-                            placeholder='Seu nome'
+                            id='firstName'
+                            name='firstName'
+                            placeholder='Nome'
+                            className={inputStyles}
+                            required 
+                        />
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                        <label htmlFor="lastName" className="text-sm font-medium text-foreground">Sobrenome</label>
+                        <input 
+                            type="text"
+                            id='lastName'
+                            name='lastName'
+                            placeholder='Sobrenome'
                             className={inputStyles}
                             required 
                         />

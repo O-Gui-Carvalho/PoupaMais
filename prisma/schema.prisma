@@ -13,6 +13,8 @@ datasource db {
 model UserSetting {
   userId    String @id
   currency  String
+  firstName String @default("")
+  lastName  String @default("")
 }
 
 model Category {
