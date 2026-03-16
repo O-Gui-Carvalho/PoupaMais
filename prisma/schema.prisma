@@ -21,7 +21,6 @@ model Category {
   createdAt DateTime @default(now())
   name      String
   userId    String
-  icon      String
   type      String  @default("income")
 
   @@unique([name, userId, type])
@@ -39,7 +38,6 @@ model Transaction {
   type          String  @default("income")
 
   category      String
-  categoryIcon  String
 }
 
 model MonthHistory {

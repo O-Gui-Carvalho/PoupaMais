@@ -8,15 +8,20 @@ import { TransactionType } from "@/lib/types"
 import { cn } from "@/lib/utils";
 import { CreateCategorySchema, CreateCategorySchemaType } from "@/schema/categories";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PlusSquare } from "lucide-react";
-import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Loader2, PlusSquare } from "lucide-react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
+import { CreateCategory } from "../_actions/categories";
+import { Category } from "@/lib/generated/prisma/client";
+import { toast } from "sonner";
 
 interface Props {
     type: TransactionType;
+    successCallback: (category: Category) => void
 }
 
-export default function CreateCategoryDialog({type}: Props) {
+export default function CreateCategoryDialog({ type, successCallback }: Props) {
     const [open, setOpen] = useState(false)
     const form = useForm<CreateCategorySchemaType>({
         resolver: zodResolver(CreateCategorySchema),
@@ -24,6 +29,43 @@ export default function CreateCategoryDialog({type}: Props) {
             type,
         }
     })
+
+    const queryClient = useQueryClient()
+
+    const {mutate, isPending} = useMutation({
+        mutationFn: CreateCategory,
+        onSuccess: async (data: Category) => {
+            form.reset({
+                name: "",
+                type,
+            })
+
+            toast.success(`Categoria ${data.name} criada com sucesso!`, {
+                id: "create-category",
+            })
+
+            successCallback(data)
+
+            await queryClient.invalidateQueries({
+                queryKey: ["categories"],
+            })
+
+            setOpen((prev) => !prev)
+        },
+
+        onError: () => {
+            toast.error("Algo deu errado", {
+                id: "create-category"
+            })
+        }
+    })
+
+    const onSubmit = useCallback((values: CreateCategorySchemaType) => {
+        toast.loading("Creating category...", {
+            id: "create-category"
+        })
+        mutate(values)
+    }, [mutate])
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -49,7 +91,7 @@ export default function CreateCategoryDialog({type}: Props) {
                 </DialogDescription>
             </DialogHeader>
             <Form {...form}>
-                <form className="space-y-8">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <FormField 
                         control={form.control}
                         name="name"
@@ -57,10 +99,10 @@ export default function CreateCategoryDialog({type}: Props) {
                             <FormItem>
                                 <FormLabel>Nome</FormLabel>
                                 <FormControl>
-                                    <Input defaultValue={""} {...field}/>
+                                    <Input placeholder="Categoria" {...field}/>
                                 </FormControl>
                                 <FormDescription>
-                                    Descrição da categoria
+                                    É assim que sua categoria aparecerá no app
                                 </FormDescription>
                             </FormItem>
                         )}
@@ -80,7 +122,10 @@ export default function CreateCategoryDialog({type}: Props) {
                         Cancelar
                     </Button>
                 </DialogClose>
-                <Button>Salvar</Button>
+                <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending}>
+                    {!isPending && "Criar"}
+                    {isPending && <Loader2 className="animate-spin" />}
+                </Button>
             </DialogFooter>
         </DialogContent>
     </Dialog>
