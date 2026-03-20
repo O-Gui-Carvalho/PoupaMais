@@ -22,8 +22,8 @@ export default function Navbar() {
 
 const items = [
   { label: "Painel", link: '/dashboard' },
-  { label: "transações", link: '/transactions' },
-  { label: "Gerenciar", link: '/manage' },
+  { label: "transações", link: '/dashboard/transactions' },
+  { label: "Gerenciar", link: '/dashboard/manage' },
 ]
 
 function MobileNavBar() {
