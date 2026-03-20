@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma';
 import { redirect } from 'next/navigation';
 import { CreateTransactionDialog } from './_components/CreateTransactionDialog';
 import Overview from './_components/Overview';
+import History from './_components/History';
 
 export default async function page() {
     const { data: session } = await auth.getSession();
@@ -57,6 +58,7 @@ export default async function page() {
         </div>
       </div>
       <Overview userSettings={userSettings} />
+      <History userSettings={userSettings} />
     </div>
   )
 }
