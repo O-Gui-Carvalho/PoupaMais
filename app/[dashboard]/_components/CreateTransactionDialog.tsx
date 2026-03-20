@@ -27,7 +27,7 @@ interface Props {
 
 export function CreateTransactionDialog({ trigger, type }: Props) {
     const form = useForm<CreateTransactionSchemaType>({
-        resolver: zodResolver(CreateTransactionSchema),
+        resolver: zodResolver(CreateTransactionSchema) as any,
         defaultValues: {
             type,
             date: new Date(),
