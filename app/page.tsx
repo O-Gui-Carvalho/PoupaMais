@@ -2,8 +2,16 @@ import LoginForm from "@/components/LoginForm";
 import Image from "next/image";
 import Link from "next/link";
 import GoogleButton from "@/components/GoogleButton";
+import { auth } from "@/lib/auth/server";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const { data: session } = await auth.getSession()
+
+  if (session?.user) {
+    redirect('/dashboard')
+  }
+
   return (
     <section className="flex min-h-dvh">
       {/* Lado Esquerdo - Imagem */}

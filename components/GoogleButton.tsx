@@ -6,7 +6,7 @@ export default function GoogleButton() {
   const handleGoogleLogin = async () => {
     await authClient.signIn.social({ 
         provider: "google",
-        callbackURL: "/account/settings" 
+        callbackURL: "/dashboard" 
     })
   }
 

@@ -1,7 +1,6 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
@@ -22,7 +21,7 @@ export default function Navbar() {
 
 const items = [
   { label: "Painel", link: '/dashboard' },
-  { label: "transações", link: '/dashboard/transactions' },
+  { label: "Transações", link: '/dashboard/transactions' },
   { label: "Gerenciar", link: '/dashboard/manage' },
 ]
 
@@ -95,7 +94,7 @@ function DesktopNavbar() {
 
 function NavbarItem({ link, label, clickCallback }: { link: string; label: string; clickCallback?: () => void }) {
   const pathname = usePathname()
-  const isActive = pathname === link || pathname.startsWith(`${link}/`)
+  const isActive = pathname === link || pathname.endsWith(`/${link}`)
 
   return (
     <div className="relative flex h-full items-center">
