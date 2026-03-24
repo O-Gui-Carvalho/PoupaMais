@@ -88,7 +88,7 @@ Siga os passos abaixo para rodar o projeto localmente.
 ### Clonando o repositório
 
 ```bash
-git clone https://github.com/O-Gui-Carvalho/poupa-mais.git
+git clone https://github.com/O-Gui-Carvalho/PoupaMais.git
 cd poupa-mais
 ```
 
